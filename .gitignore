@@ -1,0 +1,9 @@
+log/*
+db/*.sqlite3
+tmp/**/*
+*.cal
+\#*#
+typescript
+*.save
+*.save.*
+
