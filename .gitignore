@@ -6,4 +6,4 @@ tmp/**/*
 typescript
 *.save
 *.save.*
-
+db/schema.rb
