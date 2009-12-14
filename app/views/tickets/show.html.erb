@@ -1,0 +1,18 @@
+<p>
+  <b>Tickettype:</b>
+  <%=h @ticket.tickettype_id %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%=h @ticket.owner %>
+</p>
+
+<p>
+  <b>Paid:</b>
+  <%=h @ticket.paid %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>
