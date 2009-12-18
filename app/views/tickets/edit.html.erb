@@ -1,24 +1,24 @@
-<h1>Editing ticket</h1>
+<h1>Editar ticket</h1>
 
 <% form_for(@ticket) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :tickettype_id %><br />
-    <%= f.text_field :tickettype_id %>
-  </p>
-  <p>
-    <%= f.label :owner %><br />
+    <%= f.label 'Nombre' %><br />
     <%= f.text_field :owner %>
   </p>
   <p>
-    <%= f.label :paid %><br />
+    <%= f.label 'Tipo/Monto' %><br />
+    <%= collection_select :ticket, :tickettype_id, Tickettype.all, :id, :name %>
+  </p>
+  <p>
+    <%= f.label 'Pagado?' %><br />
     <%= f.check_box :paid %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Actualizar' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @ticket %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'Vista Impresion', @ticket %> |
+<%= link_to 'Volver', tickets_path %>

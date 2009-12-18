@@ -1,12 +1,9 @@
 class TicketsController < ApplicationController
-  # GET /tickets
-  # GET /tickets.xml
   def index
-    @tickets = Ticket.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tickets }
+    if params.include? :paid
+      @tickets = Ticket.find :all, :conditions => {:paid => params[:paid]}
+    else
+      @tickets = Ticket.all
     end
   end
 

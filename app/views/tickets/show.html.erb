@@ -1,18 +1,7 @@
-<p>
-  <b>Tickettype:</b>
-  <%=h @ticket.tickettype_id %>
-</p>
+<div id="print">
+  <%= render :partial => 'ticket', :object => @ticket %>
+</div>
 
-<p>
-  <b>Owner:</b>
-  <%=h @ticket.owner %>
-</p>
-
-<p>
-  <b>Paid:</b>
-  <%=h @ticket.paid %>
-</p>
-
-
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to_function("Imprimir", "javascript:print()") %>
+<%= link_to 'Editar', edit_ticket_path(@ticket) %> |
+<%= link_to 'Volver', tickets_path %>

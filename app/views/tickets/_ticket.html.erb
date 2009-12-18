@@ -1,0 +1,44 @@
+<div class="fields">
+  <div clas="id">
+    <b><span class="id-number">ID<%= @ticket.id %></span></b>
+  </div>
+  <div class="header"
+    <h2>Universidad Catolica de Santiago del Estero</h2>
+    <h2>Departamento Academico Rafaela</h2>
+    <p>Ticket de colaboracion voluntaria</p>
+  </div>
+
+  <p>
+    A nombre de: 
+    <span class="field">
+      <b><%=h @ticket.owner %></b>
+    </span>
+  </p>
+
+  <p>
+    Tipo: 
+    <span class="field">
+      <b><%=h Tickettype.find( :first, :conditions => {:id => @ticket.tickettype_id} ).name %></b>
+    </span>
+  </p>
+
+  <p>
+    Abonado? 
+    <b><span class="field">
+      <%=h 'SI' if @ticket.paid %>
+      <%=h 'NO' if not @ticket.paid %>
+    </span></b>
+  </p>
+
+  <div class="sign">
+    <p>Firma</p>
+  </div> 
+
+  <div class="price">
+    <p>
+      <span class="price-number">
+        <%=h Tickettype.find( :first, :conditions => {:id => @ticket.tickettype_id} ).amount %>
+      </span>
+    </p>
+  </div>
+</div>

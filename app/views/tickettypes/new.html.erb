@@ -1,15 +1,19 @@
-<h1>New tickettype</h1>
+<h1>Nuevo tipo de ticket</h1>
 
 <% form_for(@tickettype) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
+    <%= f.label 'Nombre' %><br />
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.label 'Monto' %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.submit 'Crear' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', tickettypes_path %>
+<%= link_to 'Volver', tickettypes_path %>

@@ -1,16 +1,20 @@
-<h1>Editing tickettype</h1>
+<h1>Editar tipo</h1>
 
 <% form_for(@tickettype) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
+    <%= f.label 'Nombre' %><br />
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.label 'Monto' %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.submit 'Actualizar' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @tickettype %> |
-<%= link_to 'Back', tickettypes_path %>
+<%= link_to 'Detalle', @tickettype %> |
+<%= link_to 'Volverl', tickettypes_path %>

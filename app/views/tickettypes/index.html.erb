@@ -1,13 +1,15 @@
-<h1>Listing tickettypes</h1>
+<h1>Lista de tipos de tickets</h1>
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Nombre</th>
+    <th>Monto</th>
   </tr>
 
 <% @tickettypes.each do |tickettype| %>
   <tr>
     <td><%=h tickettype.name %></td>
+    <td><%=h tickettype.amount %></td>
     <td><%= link_to 'Show', tickettype %></td>
     <td><%= link_to 'Edit', edit_tickettype_path(tickettype) %></td>
     <td><%= link_to 'Destroy', tickettype, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -17,4 +19,4 @@
 
 <br />
 
-<%= link_to 'New tickettype', new_tickettype_path %>
+<%= link_to 'Nuevo', new_tickettype_path %>
