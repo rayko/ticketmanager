@@ -95,14 +95,19 @@ table, td, th {
   text-align: center;
 }
 
+#print {
+  text-align: center;
+}
+
 .fields {
-  width: 20cm;
+  width: 17cm;
   margin: 30px 5px 5px 5px;
   padding-left: 10px;
   padding-right: 10px;
   border: 1px dotted #AAF;
   position: absolute;
   height: 7.5cm;
+  text-align: left;
 }
 
 .sign {

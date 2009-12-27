@@ -1,0 +1,38 @@
+<% form_tag do %>
+  <p>Cobrado? <%= check_box_tag :paid %></p>
+  <p><%= submit_tag(value = 'Filtrar') %></p>
+<% end %>
+
+<div id="results">
+  <table>
+    <tr>
+      <th>A nombre de</th>
+      <th>Tipo - Monto</th>
+      <th>Abonado?</th>
+      <th>Impreso?</th>
+    </tr>
+  
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%=h ticket.owner %></td>
+      <td>
+        <% tt = Tickettype.find(:first, :conditions => {:id => ticket.tickettype_id}) %>
+        <% if not tt.nil? %>
+          <%=h "#{tt.name} - #{tt.amount}" %>
+        <% else %>
+          N/D
+        <% end %>
+      </td>
+      <td>
+        <%=h 'SI' if ticket.paid %>
+        <%=h 'NO' if not ticket.paid %>
+      </td>
+      <td>N/D</td>
+      <td><%= link_to 'Show', ticket %></td>
+      <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+      <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+</div>

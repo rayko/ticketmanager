@@ -15,6 +15,16 @@
     <div id="logo">
       <%= image_tag "ucse.jpg" %>
     </div>
+    <div class="item">
+      <%= link_to 'Tickets', :controller => :tickets, :action => :index %>
+    </div>
+    <div class="item">
+      <%= link_to 'Tipos', :controller => :tickettypes, :action => :index %>
+    </div>
+    <div class="item">
+      <%= link_to 'Buscar', :controller => :tickets, :action => :filter %>
+    </div>
+
   </div>
 
   <div id="banner">

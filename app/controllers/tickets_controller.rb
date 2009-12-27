@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
     if params.include? :paid
       @tickets = Ticket.find :all, :conditions => {:paid => params[:paid]}
     else
-      @tickets = Ticket.all
+      @tickets = Ticket.paginate :page => params[:page], :per_page => 20
     end
   end
 
@@ -26,6 +26,14 @@ class TicketsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @ticket }
+    end
+  end
+
+  def filter
+    if request.post?
+      @tickets = Ticket.find :all, :conditions => {:paid => params[:paid].nil? ? 'f' : 't'}
+    else
+      @tickets = []
     end
   end
 

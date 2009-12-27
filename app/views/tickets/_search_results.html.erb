@@ -1,13 +1,3 @@
-<h1>Lista de tickets</h1>
-
-<!-- 
-<p>Filtrar</p>
-<% form_tag do %>
-  <p>Abonado <%= check_box_tag :paid %></p>
-  <p><%= submit_tag(value = 'Filtrar') %></p>
-<% end %>
--->
-
 <table>
   <tr>
     <th>A nombre de</th>
@@ -38,7 +28,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-<%= will_paginate @tickets %>
-<%= link_to 'New ticket', new_ticket_path %>
