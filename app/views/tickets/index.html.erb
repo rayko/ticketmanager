@@ -1,6 +1,6 @@
 <h1>Lista de tickets</h1>
 
-<!-- 
+<!--
 <p>Filtrar</p>
 <% form_tag do %>
   <p>Abonado <%= check_box_tag :paid %></p>
@@ -32,13 +32,13 @@
       <%=h 'NO' if not ticket.paid %>
     </td>
     <td>N/D</td>
-    <td><%= link_to 'Show', ticket %></td>
-    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-    <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Mostrar', ticket %></td>
+    <td><%= link_to 'Editar', edit_ticket_path(ticket) %></td>
+    <td><%= link_to 'Borrar', ticket, :confirm => 'Esta Seguro?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 <%= will_paginate @tickets %>
-<%= link_to 'New ticket', new_ticket_path %>
+<%= link_to 'Nuevo ticket', new_ticket_path %>

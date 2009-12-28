@@ -9,21 +9,21 @@
   </div>
 
   <p>
-    A nombre de: 
+    A nombre de:
     <span class="field">
       <b><%=h @ticket.owner %></b>
     </span>
   </p>
 
   <p>
-    Tipo: 
+    Tipo:
     <span class="field">
       <b><%=h Tickettype.find( :first, :conditions => {:id => @ticket.tickettype_id} ).name %></b>
     </span>
   </p>
 
   <p>
-    Abonado? 
+    Abonado?
     <b><span class="field">
       <%=h 'SI' if @ticket.paid %>
       <%=h 'NO' if not @ticket.paid %>
@@ -32,12 +32,12 @@
 
   <div class="sign">
     <p>Firma</p>
-  </div> 
+  </div>
 
   <div class="price">
     <p>
       <span class="price-number">
-        <%=h Tickettype.find( :first, :conditions => {:id => @ticket.tickettype_id} ).amount %>
+        <%=h number_to_currency Tickettype.find( :first, :conditions => {:id => @ticket.tickettype_id} ).amount, :separator => "," %>
       </span>
     </p>
   </div>

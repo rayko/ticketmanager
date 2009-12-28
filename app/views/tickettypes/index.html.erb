@@ -10,9 +10,9 @@
   <tr>
     <td><%=h tickettype.name %></td>
     <td><%=h tickettype.amount %></td>
-    <td><%= link_to 'Show', tickettype %></td>
-    <td><%= link_to 'Edit', edit_tickettype_path(tickettype) %></td>
-    <td><%= link_to 'Destroy', tickettype, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Mostrar', tickettype %></td>
+    <td><%= link_to 'Editar', edit_tickettype_path(tickettype) %></td>
+    <td><%= link_to 'Borrar', tickettype, :confirm => 'Esta Seguro?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
