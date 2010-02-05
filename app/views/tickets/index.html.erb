@@ -22,7 +22,7 @@
     <td>
       <% tt = Tickettype.find(:first, :conditions => {:id => ticket.tickettype_id}) %>
       <% if not tt.nil? %>
-        <%=h "#{tt.name} - #{tt.amount}" %>
+        <%=h "#{tt.name} - $#{tt.amount}" %>
       <% else %>
         N/D
       <% end %>
