@@ -1,7 +1,0 @@
-<div id="print">
-  <%= render :partial => 'ticket', :object => @ticket %>
-</div>
-
-<%= link_to_function("Imprimir", "javascript:print()") %>
-<%= link_to 'Editar', edit_ticket_path(@ticket) %> 
-<%= link_to 'Volver', tickets_path %>
