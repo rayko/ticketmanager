@@ -1,0 +1,33 @@
+<p>
+  <b>Nombre:</b>
+  <%=h @ticket.nombre %>
+</p>
+
+<p>
+  <b>Dni:</b>
+  <%=h @ticket.dni %>
+</p>
+
+<p>
+  <b>Valor:</b>
+  <%=h @ticket.valor %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%=h @ticket.cantidad %>
+</p>
+
+<p>
+  <b>Pagadas:</b>
+  <%=h @ticket.pagadas %>
+</p>
+
+<p>
+  <b>Empieza:</b>
+  <%=h @ticket.empieza %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>

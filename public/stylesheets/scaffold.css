@@ -1,0 +1,183 @@
+body {
+  background-color: #fff;
+  color: #333;
+  margin:0;
+  padding:0;
+  height:100%;
+}
+ 
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+ 
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+ 
+a { color: #000000;}
+a:visited { color: #000000; }
+a:hover { color: #666666; }
+ 
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+ 
+#banner {
+  background-color: #2222CC;
+  color: #FFFFFF;
+  height: 100px;
+  margin: 0;
+  padding: 1px;
+}
+ 
+#banner img {
+  float: left;
+  padding: 8px 0px 0px 40px;
+}
+ 
+#banner h1 {
+  padding: 40px 0px 0px 170px;
+}
+ 
+#menu {
+  position: absolute;
+  width: 150px;
+  background-color: #2222CC;
+  float: left;
+  height: 100%;
+}
+ 
+#menu h2, h4 {
+  color: #FFFFFF;
+}
+ 
+.item {
+  background-color: #87CEEB;
+  margin: 1px 1px 1px 1px;
+  width: 143px;
+  padding-left: 5px;
+}
+ 
+#item a {
+ 
+}
+ 
+.floating-block{
+  margin-left: 5px;
+  float: left;
+  display: block;
+}
+ 
+#free-spaces-block{
+  margin-left: 25px;
+  float: left;
+  display: block;
+}
+ 
+#contenido {
+  position: relative;
+  min-width: 800px;
+  margin-left: 160px;
+  margin-top: 10px;
+  color: #000000;
+}
+ 
+table, td, th {
+  border: 1px dotted #AAF;
+}
+ 
+.header {
+  text-align: center;
+}
+ 
+#print {
+  text-align: center;
+}
+ 
+.fields {
+  width: 17cm;
+  margin: 30px 5px 5px 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px dotted #AAF;
+  position: absolute;
+  height: 7.5cm;
+  text-align: left;
+}
+ 
+.sign {
+  float: left;
+  text-align: center;
+  position: relative;
+  top: 25px;
+}
+ 
+.sign p {
+  width: 200px;
+  border-top: 1px dotted;
+}
+ 
+.id {
+ position: relative;
+ top 5px;
+}
+ 
+.id-number{
+  font-size: 10px;
+}
+ 
+.field div {
+ 
+}
+ 
+.price{
+  float: right;
+  display: block;
+  position: relative;
+}
+ 
+.price-number {
+  font-size: 45px;
+}
+ 
+/* ERRORS */
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+ 
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+ 
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+ 
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+ 
+#logo {
+  text-align: center;
+  margin: 10px;
+}

@@ -1,0 +1,17 @@
+<% form_tag 'state' do %>
+	DNI: <%= text_field_tag 'dni' %>
+	<%= submit_tag 'Mostrar' %>
+<% end %>
+<br />
+<br />
+<% unless @ticket.nil? %>
+	<b>Nombre:</b> <%= @ticket.nombre %> <br />
+	<b>DNI:</b> <%= @ticket.dni %> <br />
+	<b>Valor por ticket:</b> <%= number_to_currency @ticket.valor %> <br />
+	<b>Total:</b> <%= @ticket.cantidad %> <br />
+	<b>Pagadas:</b> <%= @ticket.pagadas %> <br />
+	<br />
+	<b>Historial</b> <br />
+	<%= render :partial => 'pago', :collection => @histories %>
+<% end %>
+	

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombre: MyString
+  dni: 1
+  valor: 1
+  cantidad: 1
+  pagadas: 1
+  empieza: 2010-02-16
+
+two:
+  nombre: MyString
+  dni: 1
+  valor: 1
+  cantidad: 1
+  pagadas: 1
+  empieza: 2010-02-16

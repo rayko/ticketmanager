@@ -1,0 +1,19 @@
+<h1>New history</h1>
+
+<% form_for(@history) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :ticket_id %><br />
+    <%= f.text_field :ticket_id %>
+  </p>
+  <p>
+    <%= f.label :expended %><br />
+    <%= f.date_select :expended %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', histories_path %>

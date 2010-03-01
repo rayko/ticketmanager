@@ -1,0 +1,13 @@
+<p>
+  <b>Ticket:</b>
+  <%=h @history.ticket_id %>
+</p>
+
+<p>
+  <b>Expended:</b>
+  <%=h @history.expended %>
+</p>
+
+
+<%= link_to 'Edit', edit_history_path(@history) %> |
+<%= link_to 'Back', histories_path %>

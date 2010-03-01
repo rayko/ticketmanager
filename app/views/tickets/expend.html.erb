@@ -1,0 +1,7 @@
+<table>
+	<tr>
+		<td>Codigo</td><td>Nombre</td><td>Valor</td>
+	</tr>
+	<%= render :partial => "ticket", :collection => @tickets %>
+</table>
+<%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@tickets.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" } %>
