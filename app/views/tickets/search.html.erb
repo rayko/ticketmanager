@@ -1,4 +1,13 @@
 <% form_tag 'search' do %>
-	Mes: <%= select_tag 'mes', [1,2,3,4,5,6,7,8,9,10,11,12] %>
+	Mes: <%= select_tag 'mes', options_for_select([1,2,3,4,5,6,7,8,9,10,11,12], selected = @month) %>
 	<%= submit_tag 'Mostrar' %>
 <% end %>
+<div id="search-results">
+  <p>Resultados</p>
+  <% @results.each do |ticket| %>
+    <%= ticket.id %> - <%= ticket.nombre %> - <%= ticket.dni %> - <%= ticket.valor %> - <%= ticket.cantidad %> <br/>
+  <% end %>
+  <% unless @results.empty? %>
+    <%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@results.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" } %>
+  <% end %>
+</div>

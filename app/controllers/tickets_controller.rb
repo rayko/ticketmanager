@@ -102,7 +102,7 @@ class TicketsController < ApplicationController
   		
   		History.new(:ticket_id => t.id, :cuota => t.pagadas).save!	# Se deja constancia que este ticket fue expendido
   	end
-#  	require "prawn"
+#  	require "prawn"p
 #  	Prawn::Document.generate "#{RAILS_ROOT}/tmp/#{DateTime.now}_tickets.pdf" do
 #  		tickets.each do |t|
 #  			text "Universidad Católica de Santiago del Estero", :align => :center, :size => 28
@@ -118,6 +118,10 @@ class TicketsController < ApplicationController
   end
   
   def search
-  	
+    @month = params[:mes].to_i
+    @result = []
+  	if request.post?
+  	  @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
+  	end
   end
 end
