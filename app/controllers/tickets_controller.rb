@@ -119,6 +119,7 @@ class TicketsController < ApplicationController
 
   def search
     @month = params[:mes].to_i
+<<<<<<< HEAD:app/controllers/tickets_controller.rb
     @result = []
         if request.post?
           @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
@@ -127,5 +128,11 @@ class TicketsController < ApplicationController
 
   def payment
     @tickets = Ticket.all
+=======
+    @results = []
+  	if request.post?
+  	  @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
+  	end
+>>>>>>> 275565b764129364da18988fa57046d18f86fc92:app/controllers/tickets_controller.rb
   end
 end
