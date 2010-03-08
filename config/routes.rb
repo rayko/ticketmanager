@@ -4,8 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   map.expend 'tickets/expend', :controller => 'tickets', :action => 'expend'
   map.state 'tickets/state', :controller => 'tickets', :action => 'state'
   map.search 'tickets/search', :controller => 'tickets', :action => 'search'
+  map.payment 'tickets/payment', :controller => 'tickets', :action => 'payment'
   map.resources :tickets
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -24,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments
