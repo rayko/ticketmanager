@@ -119,7 +119,7 @@ class TicketsController < ApplicationController
 
   def search
     @month = params[:mes].to_i
-    @result = []
+    @results = []
     if request.post?
       @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
     end
