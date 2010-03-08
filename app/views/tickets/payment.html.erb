@@ -1,1 +1,4 @@
-<%= render :partial => 'payment_ticket', :collection => @tickets %>
+<% form_tag 'payment' do %>
+  <%= render :partial => 'payment_ticket', :collection => Ticket.all %>
+  <%= submit_tag 'Actualizar'%>
+<% end %>

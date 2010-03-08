@@ -3,3 +3,6 @@
 <b>Valor por ticket:</b> <%= number_to_currency payment_ticket.valor %> <br />
 <b>Total:</b> <%= payment_ticket.cantidad %> <br />
 <b>Cantidad Impresa:</b> <%= payment_ticket.pagadas %> <br />
+<ul>
+  <%= render :partial => 'history', :collection => History.find(:all, :conditions => {:id => payment_ticket.id}) %>
+</ul>

@@ -113,26 +113,26 @@ class TicketsController < ApplicationController
   end
 
   def state
-        @ticket = Ticket.find_by_dni(params[:dni].to_i) unless params[:dni].nil?
-        @histories = @ticket.histories unless @ticket.nil?
+    @ticket = Ticket.find_by_dni(params[:dni].to_i) unless params[:dni].nil?
+    @histories = @ticket.histories unless @ticket.nil?
   end
 
   def search
     @month = params[:mes].to_i
-<<<<<<< HEAD:app/controllers/tickets_controller.rb
     @result = []
-        if request.post?
-          @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
-        end
+    if request.post?
+      @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
+    end
   end
 
   def payment
-    @tickets = Ticket.all
-=======
-    @results = []
-  	if request.post?
-  	  @results = Ticket.find :all, :conditions => {:empieza => params[:mes]}
-  	end
->>>>>>> 275565b764129364da18988fa57046d18f86fc92:app/controllers/tickets_controller.rb
+    @hisotiral = History.all
+    if request.post?
+      params[:tickets].each do |ticket_id|
+        historial = History.find ticket_id.to_i
+        historial.pagado = true
+        historial.save!
+      end
+    end
   end
 end
