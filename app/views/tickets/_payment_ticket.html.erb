@@ -4,5 +4,5 @@
 <b>Total:</b> <%= payment_ticket.cantidad %> <br />
 <b>Cantidad Impresa:</b> <%= payment_ticket.pagadas %> <br />
 <ul>
-  <%= render :partial => 'history', :collection => History.find(:all, :conditions => {:id => payment_ticket.id}) %>
+  <%= render :partial => 'history', :collection => History.find(:all, :conditions => {:ticket_id => payment_ticket.id, :pagado => false}) %>
 </ul>

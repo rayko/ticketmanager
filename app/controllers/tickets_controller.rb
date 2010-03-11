@@ -85,7 +85,7 @@ class TicketsController < ApplicationController
   end
 
   def expend
-    @tickets = Ticket.find :all, :conditions => ["activo = ? AND empieza <= ?", true, Date.today.month]
+    @tickets = Ticket.find :all, :conditions => ["activo = ? AND empieza <= ?", true, Date.today]
     #busca todos los tickets impresos este mes.
     history_ids = History.find(:all, :conditions =>["created_at > ?", Date.today - Date.today.day]).map do |h| h.ticket_id end
     #elimino los tickets de ya emitidos
@@ -94,14 +94,14 @@ class TicketsController < ApplicationController
   end
 
   def print
-        @tickets = Ticket.find(params[:tickets_ids].split(",").map{|id| id.to_i })
-        @tickets.each do |t|
-                t.pagadas += 1          # Se asume que sera cobrada
-                t.activo = false if t.pagadas == t.cantidad             # Si llego a la cantidad pedida se desactiva
-                t.save!
+  @tickets = Ticket.find(params[:tickets_ids].split(",").map{|id| id.to_i })
+  @tickets.each do |t|
+    t.pagadas += 1          # Se asume que sera cobrada
+    t.activo = false if t.cantidad == History.find(:all, :conditions => {:ticket_id => t.id, :pagado => true}).size             # Si llego a la cantidad pedida se desactiva
+    t.save!
 
-                History.new(:ticket_id => t.id, :cuota => t.pagadas, :pagado => false).save!    # Se deja constancia que este ticket fue expendido
-        end
+    History.new(:ticket_id => t.id, :cuota => t.pagadas, :pagado => false).save!    # Se deja constancia que este ticket fue expendido
+  end
 #       require "prawn"p
 #       Prawn::Document.generate "#{RAILS_ROOT}/tmp/#{DateTime.now}_tickets.pdf" do
 #               tickets.each do |t|
@@ -114,7 +114,10 @@ class TicketsController < ApplicationController
 
   def state
     @ticket = Ticket.find_by_dni(params[:dni].to_i) unless params[:dni].nil?
-    @histories = @ticket.histories unless @ticket.nil?
+    @histories = {}
+    @ticket.histories.each do |h|
+      @histories[h.created_at.to_date.strftime('%Y-%m-%d')] = h
+    end unless @ticket.nil?
   end
 
   def search
@@ -132,7 +135,10 @@ class TicketsController < ApplicationController
         historial = History.find ticket_id.to_i
         historial.pagado = true
         historial.save!
+        ticket = Ticket.find ticket_id.to_i
+        ticket.activo = false if ticket.cantidad == History.find(:all, :conditions => {:ticket_id => ticket.id, :pagado => true}).size             # Si llego a la cantidad pedida se desactiva
+        ticket.save!
       end
-    end
+    end unless params[:tickets].nil?
   end
 end

@@ -8,6 +8,7 @@
     <th>Cantidad</th>
     <th>Pagadas</th>
     <th>Empieza</th>
+    <th>Termina</th>
   </tr>
 
 <% @tickets.each do |ticket| %>
@@ -18,6 +19,7 @@
     <td><%=h ticket.cantidad %></td>
     <td><%=h ticket.pagadas %></td>
     <td><%=h ticket.empieza %></td>
+    <td><%=h ticket.termina %></td>
     <td><%= link_to 'Show', ticket %></td>
     <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
     <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>

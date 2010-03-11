@@ -9,9 +9,8 @@
 	<b>DNI:</b> <%= @ticket.dni %> <br />
 	<b>Valor por ticket:</b> <%= number_to_currency @ticket.valor %> <br />
 	<b>Total:</b> <%= @ticket.cantidad %> <br />
-	<b>Pagadas:</b> <%= @ticket.pagadas %> <br />
 	<br />
 	<b>Historial</b> <br />
-	<%= render :partial => 'pago', :collection => @histories %>
+	<%= render :partial => 'pago' %>
 <% end %>
 	

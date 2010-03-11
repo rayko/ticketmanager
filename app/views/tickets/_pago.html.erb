@@ -1,1 +1,16 @@
-<%= pago.created_at %> ---------------------- Cuota: <%= pago.cuota %><br />
+<% comienzo = @ticket.empieza %>
+<% cuota_numero = 1 %>
+<% while comienzo < @ticket.termina do %>
+  <% if @histories.include? comienzo.strftime('%Y-%m-%d') %>
+    <% if @histories[comienzo.strftime('%Y-%m-%d')].pagado %>
+      <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - PAGADA<br />
+    <% else %>
+      <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - EMITIDA / NO PAGADA<br />
+    <% end %>
+  <% else %>
+    <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - NO EMITIDA<br />
+  <% end %>
+  <% comienzo += 1.month %>
+  <% cuota_numero += 1 %>
+<% end %>
+  

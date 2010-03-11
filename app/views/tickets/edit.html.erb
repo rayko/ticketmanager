@@ -21,7 +21,11 @@
   </p>
   <p>
     <%= f.label :empieza %><br />
-    <%= select :ticket, :empieza, [1,2,3,4,5,6,7,8,9,10,11,12] %>
+    <%= date_select :ticket, :empieza %>
+  </p>
+  <p>
+    <%= f.label :termina %><br />
+    <%= date_select :ticket, :termina %>
   </p>
   <p>
     <%= f.submit 'Update' %>

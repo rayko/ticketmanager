@@ -1,4 +1,4 @@
 <% form_tag 'payment' do %>
-  <%= render :partial => 'payment_ticket', :collection => Ticket.all %>
+  <%= render :partial => 'payment_ticket', :collection => Ticket.all.reject{|t| History.find(:all, :conditions => {:id => t.id, :pagado => true}).size == t.cantidad} %>
   <%= submit_tag 'Actualizar'%>
 <% end %>

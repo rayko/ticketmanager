@@ -4,10 +4,31 @@
 <% end %>
 <div id="search-results">
   <p>Resultados</p>
+  <table>
+    <tr>
+      <th>Nombre</th>
+      <th>Dni</th>
+      <th>Valor</th>
+      <th>Cantidad</th>
+      <th>Impresiones</th>
+      <th>Empieza</th>
+    </tr>
+  
   <% @results.each do |ticket| %>
-    <%= ticket.id %> - <%= ticket.nombre %> - <%= ticket.dni %> - <%= ticket.valor %> - <%= ticket.cantidad %> <br/>
+    <tr>
+      <td><%=h ticket.nombre %></td>
+      <td><%=h ticket.dni %></td>
+      <td><%=h ticket.valor %></td>
+      <td><%=h ticket.cantidad %></td>
+      <td><%=h ticket.pagadas %></td>
+      <td><%=h ticket.empieza %></td>
+      <td>
+      <%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => ticket.id}, html_options = { :confirm => "Esta seguro?" } %>
+      </td>
+    </tr>
   <% end %>
+  </table>
   <% unless @results.empty? %>
-    <%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@results.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" } %>
+    <%= button_to 'Imprimir Todo', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@results.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" } %>
   <% end %>
 </div>
