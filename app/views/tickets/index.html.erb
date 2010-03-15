@@ -2,10 +2,10 @@
 
 <table>
   <tr>
+    <th>ID</th>
     <th>Nombre</th>
     <th>Dni</th>
     <th>Valor</th>
-    <th>Cantidad</th>
     <th>Pagadas</th>
     <th>Empieza</th>
     <th>Termina</th>
@@ -13,11 +13,11 @@
 
 <% @tickets.each do |ticket| %>
   <tr>
+    <td><%=h ticket.id %></td>
     <td><%=h ticket.nombre %></td>
     <td><%=h ticket.dni %></td>
-    <td><%=h ticket.valor %></td>
-    <td><%=h ticket.cantidad %></td>
-    <td><%=h ticket.pagadas %></td>
+    <td>$ <%=h ticket.valor %></td>
+    <td><%=h ticket.histories.reject{|t| not t.pagado}.size %></td>
     <td><%=h ticket.empieza %></td>
     <td><%=h ticket.termina %></td>
     <td><%= link_to 'Show', ticket %></td>

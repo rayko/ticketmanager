@@ -10,7 +10,7 @@
       <th>Dni</th>
       <th>Valor</th>
       <th>Cantidad</th>
-      <th>Impresiones</th>
+      <th>Pagadas</th>
       <th>Empieza</th>
     </tr>
   
@@ -20,7 +20,7 @@
       <td><%=h ticket.dni %></td>
       <td><%=h ticket.valor %></td>
       <td><%=h ticket.cantidad %></td>
-      <td><%=h ticket.pagadas %></td>
+      <td><%=h History.find(:all, :conditions => {:ticket_id => ticket.id, :pagado => true}).size %></td>
       <td><%=h ticket.empieza %></td>
       <td>
       <%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => ticket.id}, html_options = { :confirm => "Esta seguro?" } %>

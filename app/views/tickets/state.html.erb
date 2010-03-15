@@ -4,13 +4,24 @@
 <% end %>
 <br />
 <br />
-<% unless @ticket.nil? %>
-	<b>Nombre:</b> <%= @ticket.nombre %> <br />
-	<b>DNI:</b> <%= @ticket.dni %> <br />
-	<b>Valor por ticket:</b> <%= number_to_currency @ticket.valor %> <br />
-	<b>Total:</b> <%= @ticket.cantidad %> <br />
+<% @tickets.each do |ticket| %>
+  <b>ID:</b> <%= ticket.id %><br/>
+	<b>Nombre:</b> <%= ticket.nombre %> <br />
+	<b>DNI:</b> <%= ticket.dni %> <br />
+	<b>Valor por ticket:</b> <%= number_to_currency ticket.valor %> <br />
+	<b>Total:</b> <%= ticket.cantidad %> <br />
 	<br />
 	<b>Historial</b> <br />
-	<%= render :partial => 'pago' %>
-<% end %>
+	<%= render :partial => 'pago', :locals => {:ticket => ticket} %>
+	<b>Monto restante: </b>
+	<% date = Date.today %>
+	<% monto = 0 %>
+	<% while date < ticket.termina do %>
+	  <% monto += ticket.valor %>
+	  <% date += 1.month %>
+	<% end %>
+	$ <%= monto %> - <%= link_to 'Pagar y cancelar', options = {:action => 'payment_cancellation', :ticket_id => ticket.id, :monto => monto}, html_options = {:confirm => 'Esta accion significa que la persona pagara el monto restante para cancelar el ticket ¿Esta seguro de proceder?'} %><br/>
+	<%= link_to 'Terminar', options = {:action => 'cancellation', :ticket => ticket.id}, html_options = {:confirm => 'Esta accion significa que se cancelara el ticket sin pagar el monto restante ¿Proceder?'} %>
+	<hr/>
+<% end unless @tickets.nil? %>
 	

@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.state 'tickets/state', :controller => 'tickets', :action => 'state'
   map.search 'tickets/search', :controller => 'tickets', :action => 'search'
   map.payment 'tickets/payment', :controller => 'tickets', :action => 'payment'
+  map.payment_cancellation 'tickets/payment_cancellation', :controller => 'tickets', :action => 'payment_cancellation'
+  map.cancellation 'tickets/cancellation', :controller => 'tickets', :action => 'cancellation'
   map.resources :tickets
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -5,5 +5,5 @@ class Ticket < ActiveRecord::Base
 	validates_numericality_of :valor
 	validates_numericality_of :cantidad
 	
-	validates_uniqueness_of :dni
+	# validates_uniqueness_of :dni
 end

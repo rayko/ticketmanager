@@ -1,8 +1,8 @@
-<% comienzo = @ticket.empieza %>
+<% comienzo = ticket.empieza %>
 <% cuota_numero = 1 %>
-<% while comienzo < @ticket.termina do %>
-  <% if @histories.include? comienzo.strftime('%Y-%m-%d') %>
-    <% if @histories[comienzo.strftime('%Y-%m-%d')].pagado %>
+<% while comienzo < ticket.termina do %>
+  <% if @histories[ticket.id].include? comienzo.strftime('%Y-%m-%d') %>
+    <% if @histories[ticket.id][comienzo.strftime('%Y-%m-%d')].pagado %>
       <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - PAGADA<br />
     <% else %>
       <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - EMITIDA / NO PAGADA<br />
