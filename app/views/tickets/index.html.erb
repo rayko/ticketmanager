@@ -1,4 +1,4 @@
-<h1>Listing tickets</h1>
+<h1>Lista de tickets</h1>
 
 <table>
   <tr>
@@ -9,6 +9,7 @@
     <th>Pagadas</th>
     <th>Empieza</th>
     <th>Termina</th>
+    <th>Activo</th>
   </tr>
 
 <% @tickets.each do |ticket| %>
@@ -18,11 +19,12 @@
     <td><%=h ticket.dni %></td>
     <td>$ <%=h ticket.valor %></td>
     <td><%=h ticket.histories.reject{|t| not t.pagado}.size %></td>
-    <td><%=h ticket.empieza %></td>
-    <td><%=h ticket.termina %></td>
+    <td><%=h ticket.empieza.strftime '%m-%Y' %></td>
+    <td><%=h ticket.termina.strftime '%m-%Y' %></td>
+    <td><%=h ticket.activo ? 'Si' : 'No' %></td>
     <td><%= link_to 'Show', ticket %></td>
-    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-    <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to('Edit', edit_ticket_path(ticket)) unless not ticket.activo %></td>
+    <td><%= link_to('Destroy', ticket, :confirm => 'Are you sure?', :method => :delete) unless not ticket.activo %></td>
   </tr>
 <% end %>
 </table>

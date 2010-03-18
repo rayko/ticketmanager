@@ -1,27 +1,46 @@
-<% form_tag 'state' do %>
-	DNI: <%= text_field_tag 'dni' %>
-	<%= submit_tag 'Mostrar' %>
-<% end %>
-<br />
-<br />
-<% @tickets.each do |ticket| %>
-  <b>ID:</b> <%= ticket.id %><br/>
-	<b>Nombre:</b> <%= ticket.nombre %> <br />
-	<b>DNI:</b> <%= ticket.dni %> <br />
-	<b>Valor por ticket:</b> <%= number_to_currency ticket.valor %> <br />
-	<b>Total:</b> <%= ticket.cantidad %> <br />
-	<br />
-	<b>Historial</b> <br />
-	<%= render :partial => 'pago', :locals => {:ticket => ticket} %>
-	<b>Monto restante: </b>
-	<% date = Date.today %>
-	<% monto = 0 %>
-	<% while date < ticket.termina do %>
-	  <% monto += ticket.valor %>
-	  <% date += 1.month %>
-	<% end %>
-	$ <%= monto %> - <%= link_to 'Pagar y cancelar', options = {:action => 'payment_cancellation', :ticket_id => ticket.id, :monto => monto}, html_options = {:confirm => 'Esta accion significa que la persona pagara el monto restante para cancelar el ticket ¿Esta seguro de proceder?'} %><br/>
-	<%= link_to 'Terminar', options = {:action => 'cancellation', :ticket => ticket.id}, html_options = {:confirm => 'Esta accion significa que se cancelara el ticket sin pagar el monto restante ¿Proceder?'} %>
-	<hr/>
-<% end unless @tickets.nil? %>
+<div>
+  <h1>Estado de tickets</h1>
+  <p>
+    Ingrese un DNI para ver los tickets asociados y su correspondiente estado
+  </p>
+  <p>
+    <% form_tag 'state' do %>
+    	DNI: <%= text_field_tag 'dni' %>
+    	<%= submit_tag 'Mostrar' %>
+    <% end %>
+  </p>
+  <br />
+  <% @tickets.each do |ticket| %>
+    <b>ID:</b> <%= ticket.id %><br/>
+  	<b>Nombre:</b> <%= ticket.nombre %> <br />
+  	<b>DNI:</b> <%= ticket.dni %> <br />
+  	<b>Valor por ticket:</b> <%= number_to_currency ticket.valor %> <br />
+  	<b>Total:</b> <%= ticket.cantidad %> <br />
+  	<br />
+  	<b>Historial</b> <br />
+  	<%= render :partial => 'pago', :locals => {:ticket => ticket} %>
+    <% total = 0 %>
+    <% date = ticket.empieza %>
+    <% while date < ticket.termina do %>
+      <% total += ticket.valor %>
+      <% date += 1.month %>
+    <% end %>
+    <% pagado = 0 %>
+    <% ticket.histories.collect{|h| pagado += h.monto if h.pagado}%>
+    <% if ticket.activo %>
+      <b>Monto restante: </b>
+      <% date = Date.today %>
+      <% monto = 0 %>
+      <% while date < ticket.termina do %>
+        <% monto += ticket.valor %>
+        <% date += 1.month %>
+      <% end %>
+      $ <%= monto -= pagado %>  <%= link_to ('Pagar y cancelar', options = {:action => 'payment_cancellation', :ticket_id => ticket.id, :monto => monto, :razon => 'Cancelacion'}, html_options = {:confirm => 'Esta accion significa que la persona pagara el monto restante para cancelar el ticket ¿Esta seguro de proceder?'}) unless not ticket.activo %><br/>
+    <% end %>
+    <b>Total a pagar: $ </b><%= total %><br/>
+    <b>Total pagado: $ </b><%= pagado %><br/>
+    <%= link_to ('Terminar', options = {:action => 'cancellation', :ticket => ticket.id}, html_options = {:confirm => 'Esta accion significa que se cancelara el ticket sin pagar el monto restante ¿Proceder?'}) unless not ticket.activo %>
+    <hr/>
+  <% end unless @tickets.nil? %>
 	
+</div>

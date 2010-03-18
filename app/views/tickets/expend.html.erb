@@ -1,7 +1,12 @@
-<table>
-	<tr>
-		<td>Codigo</td><td>Nombre</td><td>Valor</td>
-	</tr>
-	<%= render :partial => "ticket", :collection => @tickets %>
-</table>
-<%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@tickets.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" } %>
+<% session[:date] = nil %>
+<div>
+  <h1>Expender</h1>
+  <p>Imprimir tickets del corriente mes que no han sido impresos por primera vez aun</p>
+  <table>
+  	<tr>
+  		<td>Codigo</td><td>Nombre</td><td>Valor</td>
+  	</tr>
+  	<%= render :partial => "ticket", :collection => @tickets %>
+  </table>
+  <%= button_to('Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@tickets.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" }) unless @tickets.empty? %>
+</div>

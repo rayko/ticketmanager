@@ -1,16 +1,22 @@
 <% comienzo = ticket.empieza %>
 <% cuota_numero = 1 %>
-<% while comienzo < ticket.termina do %>
-  <% if @histories[ticket.id].include? comienzo.strftime('%Y-%m-%d') %>
-    <% if @histories[ticket.id][comienzo.strftime('%Y-%m-%d')].pagado %>
-      <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - PAGADA<br />
+<% if ticket.activo %>
+  <% while comienzo < ticket.termina do %>
+    <% if @histories[ticket.id].include? comienzo.strftime('%Y-%m-%d') %>
+      <% if @histories[ticket.id][comienzo.strftime('%Y-%m-%d')].pagado %>
+        <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - PAGADA - Monto: $<%= @histories[ticket.id][comienzo.strftime('%Y-%m-%d')].monto %><br />
+      <% else %>
+        <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - EMITIDA / NO PAGADA<br />
+      <% end %>
     <% else %>
-      <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - EMITIDA / NO PAGADA<br />
+      <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - NO EMITIDA<br />
     <% end %>
-  <% else %>
-    <%= comienzo %> ---------------------- Cuota: <%= cuota_numero %> - NO EMITIDA<br />
+    <% comienzo += 1.month %>
+    <% cuota_numero += 1 %>
   <% end %>
-  <% comienzo += 1.month %>
-  <% cuota_numero += 1 %>
+<% else %>
+  <% @histories[ticket.id].each do |key, value| %>
+    <%= "#{value.created_at.to_s[0..15]} ---------------------- Cuota: #{value.cuota.strftime('%m-%Y')} - Monto: $ #{value.monto}" %><br />
+  <% end %>
 <% end %>
   

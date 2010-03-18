@@ -1,2 +1,2 @@
 
-<li><p>Cuota: <%= history.cuota %> -- <%= history.pagado ? '<b>PAGADA</b>' : 'Pagar ' + check_box_tag('tickets[]', history.id) %></p></li>
+<li><p>Cuota: <%= history.cuota.strftime('%m-%Y') %> -- <%= history.pagado ? '<b>PAGADA</b>' : 'Pagar ' + check_box_tag('tickets[]', history.id) %></p></li>

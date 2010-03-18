@@ -1,33 +1,38 @@
-<p>
-  <b>Nombre:</b>
-  <%=h @ticket.nombre %>
-</p>
-
-<p>
-  <b>Dni:</b>
-  <%=h @ticket.dni %>
-</p>
-
-<p>
-  <b>Valor:</b>
-  <%=h @ticket.valor %>
-</p>
-
-<p>
-  <b>Cantidad:</b>
-  <%=h @ticket.cantidad %>
-</p>
-
-<p>
-  <b>Pagadas:</b>
-  <%=h @ticket.pagadas %>
-</p>
-
-<p>
-  <b>Empieza:</b>
-  <%=h @ticket.empieza %>
-</p>
-
-
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<div>
+  <h1>Datos del Ticket</h1>
+  <b>ID:</b> <%= @ticket.id %><br/>
+  <b>Nombre:</b> <%= @ticket.nombre %> <br />
+  <b>DNI:</b> <%= @ticket.dni %> <br />
+  <b>Valor por ticket:</b> <%= number_to_currency @ticket.valor %> <br />
+  <b>Empieza:</b> <%=h @ticket.empieza %> <br />
+  <b>Termina:</b> <%=h @ticket.termina %> <br />
+  <b>Cantidad:</b> <%=h @ticket.cantidad %> <br />
+  <br />
+  <b>Historial</b> <br />
+  <%= render :partial => 'pago', :locals => {:ticket => @ticket} %>
+  <% total = 0 %>
+  <% date = @ticket.empieza %>
+  <% while date < @ticket.termina do %>
+    <% total += @ticket.valor %>
+    <% date += 1.month %>
+  <% end %>
+  <% pagado = 0 %>  
+  <% @ticket.histories.collect{|h| pagado += h.monto if h.pagado}%>
+  <% if @ticket.activo %>
+    <b>Monto restante: </b>
+    <% date = Date.today %>
+    <% monto = 0 %>
+    <% while date < @ticket.termina do %>
+      <% monto += @ticket.valor %>
+      <% date += 1.month %>
+    <% end %>
+    $ <%= monto -= pagado %>  <%= link_to ('Pagar y cancelar', options = {:action => 'payment_cancellation', :ticket_id => @ticket.id, :monto => monto, :razon => 'Cancelacion'}, html_options = {:confirm => 'Esta accion significa que la persona pagara el monto restante para cancelar el ticket ¿Esta seguro de proceder?'}) unless not @ticket.activo %><br/>
+  <% end %>
+  <b>Total a pagar: $ </b><%= total %><br/>
+  <b>Total pagado: $ </b><%= pagado %><br/>
+  <%= link_to ('Terminar', options = {:action => 'cancellation', :ticket => @ticket.id}, html_options = {:confirm => 'Esta accion significa que se cancelara el ticket sin pagar el monto restante ¿Proceder?'}) unless not @ticket.activo %>
+  <hr/>
+  
+  <%= link_to('Editar', edit_ticket_path(@ticket)) unless not @ticket.activo %> 
+  <%= link_to 'Volver a la lista', tickets_path %>
+</div>

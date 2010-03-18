@@ -1,5 +1,10 @@
+<% session[:date] = @fecha.strftime('%m-%Y') unless @fecha.nil? %>
+<h1>Buscar</h1>
+<p>
+  Ingrese un mes y año para buscar los tickets que estan activos en esa fecha. Podra imprimir todos o algunos de los tickets mostrados en
+  resultados.</p>
 <% form_tag 'search' do %>
-	Mes: <%= select_tag 'mes', options_for_select([1,2,3,4,5,6,7,8,9,10,11,12], selected = @month) %>
+	Fecha: <%= select_date @fecha || Date.today, :discard_day => true %>
 	<%= submit_tag 'Mostrar' %>
 <% end %>
 <div id="search-results">
@@ -12,6 +17,7 @@
       <th>Cantidad</th>
       <th>Pagadas</th>
       <th>Empieza</th>
+      <th>Termina</th>
     </tr>
   
   <% @results.each do |ticket| %>
@@ -22,6 +28,8 @@
       <td><%=h ticket.cantidad %></td>
       <td><%=h History.find(:all, :conditions => {:ticket_id => ticket.id, :pagado => true}).size %></td>
       <td><%=h ticket.empieza %></td>
+      <td><%=h ticket.termina %></td>
+      <td><%= link_to 'Ver', ticket %></td>
       <td>
       <%= button_to 'Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => ticket.id}, html_options = { :confirm => "Esta seguro?" } %>
       </td>

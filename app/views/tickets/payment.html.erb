@@ -1,4 +1,10 @@
-<% form_tag 'payment' do %>
-  <%= render :partial => 'payment_ticket', :collection => Ticket.all.reject{|t| History.find(:all, :conditions => {:ticket_id => t.id, :pagado => true}).size == t.cantidad} %>
-  <%= submit_tag 'Actualizar'%>
-<% end %>
+<div>
+  <h1>Registrar pagos</h1>
+  <p>
+    Informe los pagos de los tickets que se emitieron (imprimieron).
+  </p>
+  <% form_tag 'payment' do %>
+    <%= render :partial => 'payment_ticket', :collection => @tickets %>
+    <%= submit_tag 'Actualizar'%>
+  <% end %>
+</div>

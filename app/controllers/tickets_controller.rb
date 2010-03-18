@@ -15,6 +15,15 @@ class TicketsController < ApplicationController
   # GET /tickets/1.xml
   def show
     @ticket = Ticket.find(params[:id])
+    @tickets = [@ticket] 
+    @histories = []
+    @tickets.each do |ticket|
+      temp = {}
+      ticket.histories.each do |h|
+        temp[h.cuota.strftime('%Y-%m-%d')] = h
+      end
+      @histories[ticket.id] = temp
+    end unless @tickets.nil?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -49,6 +58,8 @@ class TicketsController < ApplicationController
       temp_date += 1.month
     end
     @ticket.cantidad = months
+    @ticket.empieza.change(:day => 1)
+    @ticket.termina.change(:day => 1)
     respond_to do |format|
       if @ticket.save
         flash[:notice] = 'Ticket was successfully created.'
@@ -91,52 +102,47 @@ class TicketsController < ApplicationController
   end
 
   def expend
-    @tickets = Ticket.find :all, :conditions => ["activo = ? AND empieza <= ?", true, Date.today]
+    #@tickets = Ticket.find :all, :conditions => ["activo = ? AND ? >= empieza", true, Date.today.change(:day => 1)]
+    @tickets = Ticket.all.reject{|t| t.empieza.month != Date.today.month}
     #busca todos los tickets impresos este mes.
-    history_ids = History.find(:all, :conditions =>["created_at > ?", Date.today - Date.today.day]).map do |h| h.ticket_id end
+    history_ids = History.all.reject{|h| h.created_at.month != Date.today.month}.map do |h| h.ticket_id end
     #elimino los tickets de ya emitidos
     @tickets.delete_if do |t| history_ids.include? t.id end
 
   end
 
   def print
+    session[:date].nil? ? @fecha = Date.today.change(:day => 1) : @fecha = Date.parse("01-#{session[:date]}")
     @tickets = Ticket.find(params[:tickets_ids].split(",").map{|id| id.to_i })
     @tickets.each do |t|       # Se asume que sera cobrada
       t.activo = false if t.cantidad == History.find(:all, :conditions => {:ticket_id => t.id, :pagado => true}).size             # Si llego a la cantidad pedida se desactiva
       t.save!
-      
-      History.new(:ticket_id => t.id, :cuota => Date.today.strftime('01-%m-%Y'), :pagado => false).save! unless not History.find(:all, :conditions => {:ticket_id => t.id, :cuota => Date.today.strftime('01-%m-%Y')}).empty?   # Se deja constancia que este ticket fue expendido
+
+      History.new(:ticket_id => t.id, :cuota => @fecha, :pagado => false, :monto => t.valor).save! if History.find(:all, :conditions => {:ticket_id => t.id, :cuota => @fecha}).empty?   # Se deja constancia que este ticket fue expendido
     end
-  #       require "prawn"p
-  #       Prawn::Document.generate "#{RAILS_ROOT}/tmp/#{DateTime.now}_tickets.pdf" do
-  #               tickets.each do |t|
-  #                       text "Universidad Católica de Santiago del Estero", :align => :center, :size => 28
-  #                       text "Nombre: #{t.nombre}             Cuota: #{t.pagadas}", :align => :left, :size => 16
-  #                       text "Valor: $#{t.valor}", :align => :right, :size => 16
-  #               end
-  #       end
-    prawnto :filename => "#{DateTime.now}_ticket.pdf"
+    @razon = params[:razon] || 'Cuota normal'
+    prawnto :filename => "#{DateTime.now.strftime('%Y%m%d%H%M%S')}_ticket.pdf"
   end
 
   def state
     @tickets = Ticket.find(:all, :conditions => {:dni => params[:dni].to_i}) unless params[:dni].nil?
-    @tickets.reject{|t| not t.activo}
+    @tickets.reject{|t| not t.activo} unless params[:dni].nil?
     @histories = []
     @tickets.each do |ticket|
       temp = {}
       ticket.histories.each do |h|
-        temp[h.created_at.to_date.strftime('%Y-%m-%d')] = h
+        temp[h.cuota.strftime('%Y-%m-%d')] = h
       end
       @histories[ticket.id] = temp
     end unless @tickets.nil?
   end
 
   def search
-    @month = params[:mes].to_i
+    @fecha = Date.parse "#{params[:date][:year]}-#{params[:date][:month]}-#{params[:date][:day]}" unless params[:date].nil?
     @results = []
     if request.post?
       # Como quiero obtener el dia final del mes que quiero, armo el primer dia del siguiente mes
-      fecha = Date.parse "#{Date.today.year.to_s}-#{params[:mes].to_i + 1}-01"
+      fecha = Date.parse "#{@fecha.year}-#{@fecha.month + 1}-01"
       
       # Si le resto un dia, obtengo la fecha con el dia final del mes que quiero
       last_day = fecha - 1.day
@@ -145,17 +151,21 @@ class TicketsController < ApplicationController
       fecha = fecha - 1.month
       # @results = Ticket.find :all, :conditions => ["empieza > ? AND empieza < ?", fecha, last_day]
       @results = Ticket.all.reject{|t| not last_day.between? t.empieza, t.termina}
+      @results.reject!{|t| not t.activo}
     end
   end
 
   def payment
+    @tickets = Ticket.all.reject{|t| not t.activo}
+    @tickets.reject!{|t| t.histories.reject{|h| h.pagado}.size == 0}
     @hisotiral = History.all
     if request.post?
       params[:tickets].each do |ticket_id|
+        debugger
         historial = History.find ticket_id.to_i
         historial.pagado = true
         historial.save!
-        ticket = Ticket.find ticket_id.to_i
+        ticket = Ticket.find historial.ticket_id
         ticket.activo = false if ticket.cantidad == History.find(:all, :conditions => {:ticket_id => ticket.id, :pagado => true}).size  
         ticket.pagadas += 1
         ticket.save!
@@ -165,19 +175,19 @@ class TicketsController < ApplicationController
   
   def payment_cancellation
     ticket = Ticket.find params[:ticket_id]
-    #ticket.activo = false
-    #ticket.termina = Date.today
-    #ticket.save!
+    ticket.activo = false
+    ticket.save!
     @monto = params[:monto].to_i
     @tickets = [ticket]
-    prawnto :filename => "#{DateTime.now}_ticket.pdf"
+    @razon = params[:razon] || 'Cuota normal'
+    History.new(:ticket_id => ticket.id, :cuota => Date.today, :pagado => true, :monto => @monto).save!
+    prawnto :filename => "#{DateTime.now.strftime('%Y%m%d%H%M%S')}_ticket.pdf"
     render :template => 'tickets/print.pdf.prawn', :layout => false
   end
   
   def cancellation
     ticket = Ticket.find params[:ticket_id]
     ticket.activo = false
-    ticket.termina = Date.today
     # ticket.save!
   end
 end

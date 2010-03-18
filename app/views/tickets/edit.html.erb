@@ -4,33 +4,17 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
-  </p>
-  <p>
-    <%= f.label :dni %><br />
-    <%= f.text_field :dni %>
-  </p>
-  <p>
-    <%= f.label :valor %><br />
-    <%= f.text_field :valor %>
-  </p>
-  <p>
-    <%= f.label :cantidad %><br />
-    <%= f.text_field :cantidad %>
-  </p>
-  <p>
     <%= f.label :empieza %><br />
-    <%= date_select :ticket, :empieza %>
+    <%= date_select :ticket, :empieza, :discard_day => true %>
   </p>
   <p>
     <%= f.label :termina %><br />
-    <%= date_select :ticket, :termina %>
+    <%= date_select :ticket, :termina, :discard_day => true %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Actializar' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @ticket %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'ver', @ticket %> |
+<%= link_to 'Volver a la lista', tickets_path %>
