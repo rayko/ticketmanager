@@ -150,7 +150,7 @@ class TicketsController < ApplicationController
       # Necesito tambien el primer dia, asi que le resto un mes a la fecha que hice antes
       fecha = fecha - 1.month
       # @results = Ticket.find :all, :conditions => ["empieza > ? AND empieza < ?", fecha, last_day]
-      @results = Ticket.all.reject{|t| not last_day.between? t.empieza, t.termina}
+      @results = Ticket.all.reject{|t| not fecha.between? t.empieza, t.termina + 1.day}
       @results.reject!{|t| not t.activo}
     end
   end
