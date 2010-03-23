@@ -138,19 +138,10 @@ class TicketsController < ApplicationController
   end
 
   def search
-    @fecha = Date.parse "#{params[:date][:year]}-#{params[:date][:month]}-#{params[:date][:day]}" unless params[:date].nil?
+    @fecha = Date.parse "#{params[:date][:year]}-#{params[:date][:month]}-01" unless params[:date].nil?
     @results = []
     if request.post?
-      # Como quiero obtener el dia final del mes que quiero, armo el primer dia del siguiente mes
-      fecha = Date.parse "#{@fecha.year}-#{@fecha.month + 1}-01"
-      
-      # Si le resto un dia, obtengo la fecha con el dia final del mes que quiero
-      last_day = fecha - 1.day
-      
-      # Necesito tambien el primer dia, asi que le resto un mes a la fecha que hice antes
-      fecha = fecha - 1.month
-      # @results = Ticket.find :all, :conditions => ["empieza > ? AND empieza < ?", fecha, last_day]
-      @results = Ticket.all.reject{|t| not fecha.between? t.empieza, t.termina + 1.day}
+      @results = Ticket.all.reject{|t| not @fecha.between? t.empieza, t.termina + 1.day}
       @results.reject!{|t| not t.activo}
     end
   end
