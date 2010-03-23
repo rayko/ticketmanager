@@ -14,11 +14,12 @@
     <div id="logo">
       <%= image_tag "ucse.jpg" %>
     </div>
+    <h2>Menu</h2>
     <div class="item">
       <%= link_to 'Tickets', :controller => :tickets, :action => :index %>
     </div>
     <div class="item">
-    	<%= link_to "Expender", :controller => :tickets, :action => :expend %>
+    	<%= link_to "Emitir", :controller => :tickets, :action => :expend %>
     </div>
     <div class="item">
       <%= link_to 'Buscar', :controller => :tickets, :action => :search %>
@@ -26,9 +27,12 @@
     <div class="item">
       <%= link_to 'Registrar Pago', :controller => :tickets, :action => :payment %>
     </div>
- 	<div class="item">
- 		<%= link_to 'Estado', :controller => :tickets, :action => :state %>
- 	</div>
+   	<div class="item">
+   		<%= link_to 'Estado', :controller => :tickets, :action => :state %>
+   	</div>
+   	<div class="item">
+   		<%= link_to 'Ayuda Rapida', :controller => :ayudas, :action => :index %>
+   	</div>
   </div>
  
   <div id="banner">

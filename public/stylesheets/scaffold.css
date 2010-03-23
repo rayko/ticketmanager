@@ -46,7 +46,7 @@ a:hover { color: #666666; }
 }
 
 #menu {
-  position: absolute;
+  position: fixed;
   width: 150px;
   background-color: #2222CC;
   float: left;
@@ -81,7 +81,6 @@ a:hover { color: #666666; }
 }
 
 #contenido {
-  position: relative;
   min-width: 800px;
   margin-left: 160px;
   color: #000000;

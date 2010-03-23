@@ -8,5 +8,5 @@
   	</tr>
   	<%= render :partial => "ticket", :collection => @tickets %>
   </table>
-  <%= button_to('Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@tickets.map{|t| t.id}.join(",")) }, html_options = { :confirm => "Se generará un pdf para imprimir, pero se borraran los tickets que ve en pantalla. ¿Desea continuar?" }) unless @tickets.empty? %>
+  <%= button_to('Imprimir', options = { :controller => 'tickets', :action => 'print' , :format => 'pdf', :tickets_ids => (@tickets.map{|t| t.id}.join(",")) }, html_options = { :onclick => "return confirm('Se generará un pdf para imprimir, sin embargo, los tickets que figuran ahora, no se mostraran cuando vuelva a entrar a esta seccion. ¿Desea continuar?');" }) unless @tickets.empty? %>
 </div>

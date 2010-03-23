@@ -1,0 +1,68 @@
+<h1>Ayuda</h1>
+<p>En esta seccion encontrara una asistencia basica para orientarle en el uso de esta aplicacion</p>
+<p>En el menu de la izquierda se encuentran los enlaces a las distintas secciones del sistema. A continuacion
+  se detallan las secciones:</p>
+
+<h3>Tickets</h3>
+<p>
+  Este menu accede a la lista de tickets que hay cargados en el sistema. Desde aqui puede verlos, editarlos, crearlos o eliminarlos.
+  dendtro de esta seccion encontrara las siguientes opciones:
+</p>
+<ul>
+  <li>
+    <b>Nuevo</b>: haga click en esta opcion para abrir el formulario de carga para un nuevo ticket. Los campos "Valor" y "DNI" deben ser numeros
+    unicamente. El DNI no puede contener puntos. En el caso del Valor, el punto se usa para decimales.
+  </li>
+  <li>
+    <b>Editar</b>: esta opcion solo aparece si el ticket esta activo. Aqui solo podra modificar el periodo del ticket.
+  </li>
+  <li>
+    <b>Eliminar</b>: esta opcion solo aparece si el ticket esta activo. Sirve para eliminar el ticket.
+  </li>
+  <li>
+    <b>Ver</b>: muestra la informacion del ticket.
+  </li>
+</ul>
+
+<h3>Emitir</h3>
+<p>
+  En esta seccion se mostraran los tickets activos que no tienen emitidos los comprobantes aun. Al hacer click
+  en "Imprimir", se generara un archivo PDF con los comprobantes de los tickets que se muestran. Estos tickets
+  no se mostraran mas en esta seccion durante el mes asi que no podra re-imprimirlos en esta seccion. 
+</p>
+
+<h3>Buscar</h3>
+<p>
+  Puede localizar los tickets de un mes y año determinados. Para eso debe especificar el mes y año que desea buscar.
+  Los resultados mostrados corresponden a los tickets activos que incluyen la fecha seleccionada. Es decir, que tiene
+  una cuota en ese mes. Adicionalmente podra imprimir alguno o todos los comprobantes para los tickets mostrdors.
+</p>
+<p>
+  Si desea emitir un comprobante en un mes distinto al actual, utilize esta seccion, especificando el mes que desea emitir
+  y localizando el ticket que se va a emitir. Esto lo puede hacer con todos o algunos de los tickets.
+</p>
+
+<h3>Registrar Pago</h3>
+<p>
+  Por defecto, el sistema emite los comprobantes pero no especifica que se pagaron. Para registrar un pago, debe utilizar esta seccion
+  y tildar, de cada comprobante de pago, aquellos que fueron pagados. Una vez tildados los pagos informados, baje hasta el final de
+  la pagina (puede presionar la tecla "End" o "Fin" para llegar mas rapido) y presione el boton actualizar. Si aun quedan pagos por informar
+  seguiran mostrandose en la pagina.
+</p>
+
+<h3>Estado</h3>
+<p>
+  Puede revisar el estado de los tickets asociados a un DNI. El sistema permite poder registrar mas de un ticket por DNI. De este
+  modo un cliente puede tener mas de un ticket activo a la vez. Teniendo esto en cuenta, puede ingresar el DNI en esta seccion, sin
+  puntos, y obtener el estado de los tickets asociados. Para los tickets activos apareceran dos acciones:
+  <ul>
+    <li>
+      <b>Pagar y cancelar</b>: esta opcion le permite generar un ultimo comprobante con el total que deberia pagar el cliente, y
+      cancelar el ticket. Se muestra el importe que le queda por pagar al cliente en esta vista.
+    </li>
+    <li>
+      <b>Terminar</b>: esta opcion permite cancelar el ticket sin registrar nuevos comprobantes. El cliente no abonara ningun
+      monto y quedara registrado en el sistema que ese cliente no completo los pagos.
+    </li>
+  </ul>
+</p>

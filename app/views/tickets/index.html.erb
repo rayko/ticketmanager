@@ -22,13 +22,13 @@
     <td><%=h ticket.empieza.strftime '%m-%Y' %></td>
     <td><%=h ticket.termina.strftime '%m-%Y' %></td>
     <td><%=h ticket.activo ? 'Si' : 'No' %></td>
-    <td><%= link_to 'Show', ticket %></td>
-    <td><%= link_to('Edit', edit_ticket_path(ticket)) unless not ticket.activo %></td>
-    <td><%= link_to('Destroy', ticket, :confirm => 'Are you sure?', :method => :delete) unless not ticket.activo %></td>
+    <td><%= link_to 'Ver', ticket %></td>
+    <td><%= link_to('Editar', edit_ticket_path(ticket)) unless not ticket.activo %></td>
+    <td><%= link_to('Eliminar', ticket, :confirm => '¿Esta seguro?', :method => :delete) unless not ticket.activo %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New ticket', new_ticket_path %>
+<%= link_to 'Nuevo', new_ticket_path %>

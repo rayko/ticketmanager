@@ -62,7 +62,7 @@ class TicketsController < ApplicationController
     @ticket.termina.change(:day => 1)
     respond_to do |format|
       if @ticket.save
-        flash[:notice] = 'Ticket was successfully created.'
+        flash[:notice] = 'Ticket creado!!'
         format.html { redirect_to(@ticket) }
         format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
       else
@@ -79,7 +79,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
-        flash[:notice] = 'Ticket was successfully updated.'
+        flash[:notice] = 'Ticket actualizado!!'
         format.html { redirect_to(@ticket) }
         format.xml  { head :ok }
       else
